@@ -14,11 +14,11 @@ class View(ft.UserControl):
         # graphical elements
         self._title = None
 
-        self.ddPD = None
-        self.ddCodins = None
-        self.btnPrintCorsiPD = None
-        self.btnPrintIscrittiCorsiPD = None
-        self.btnPrintIscrittiCodins = None
+        self.ddPD = None  #dropodown Periodo didattico
+        self.ddCodins = None # codice insegnamento
+        self.btnPrintCorsiPD = None #  bottone che stampa tutti i corsi del semestre
+        self.btnPrintIscrittiCorsiPD = None # numero iscritti corsi periodo didattico
+        self.btnPrintIscrittiCodins = None # elenco iscritti ad un determinato corso
         self.btnPrintCDSCodins = None
         self.lvTxtOut = None
 
@@ -28,7 +28,28 @@ class View(ft.UserControl):
         self._title = ft.Text("Hello World", color="blue", size=24)
         self._page.controls.append(self._title)
 
+        self.ddPD = ft.Dropdown(label="Periodo didattico",
+                                options=[ft.dropdown.Option("I"),
+                                         ft.dropdown.Option("II")], width=200)
+        self.ddCodins = ft.Dropdown(label="Corso", width=200, on_change=self._controller.ddCodinsSelected)
+        self._controller.fillCodins()
 
+
+        self.btnPrintCorsiPD = ft.ElevatedButton(text="Stampa corsi",
+                                                 on_click=self._controller.handlePrintCorsiPD, width=300)
+        self.btnPrintIscrittiCorsiPD = ft.ElevatedButton(text="Stampa numero iscritti",
+                                                 on_click=self._controller.handlePrintIscrittiCorsiPD, width=300)
+        self.btnPrintIscrittiCodins = ft.ElevatedButton(text="Stampa iscritti al corso",
+                                                 on_click=self._controller.handlePrintIscrittiCodins, width=300)
+        self.btnPrintCDSCodins = ft.ElevatedButton(text="Stampa CDS afferenti",
+                                                 on_click=self._controller.handlePrintCDSCodins, width=300)
+
+        self.lvTxtOut = ft.ListView(expand=True)
+
+        row1 = ft.Row([self.ddPD, self.btnPrintCorsiPD, self.btnPrintIscrittiCorsiPD,], alignment=ft.MainAxisAlignment.CENTER)
+        row2 = ft.Row([self.ddCodins, self.btnPrintIscrittiCodins, self.btnPrintCDSCodins], alignment=ft.MainAxisAlignment.CENTER)
+
+        self._page.add( row1, row2, self.lvTxtOut)
         self._page.update()
 
     @property
