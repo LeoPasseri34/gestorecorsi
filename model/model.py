@@ -13,3 +13,16 @@ class Model:
 
     def getCorsiPd(self, pd):
         return DAO.getCorsiPD(pd)
+
+    def getCorsiPdwithIscritti(self, pd):
+        return DAO.getCorsiPDwithIscritti(pd)
+
+    def getStudentiCorso(self, codins):
+        outlist = DAO.getStudentiCorso(codins)
+        outlist.sort(key=lambda x: x.nome)
+        return outlist
+
+    def getCDSofCorso(self, codins):
+        cds = DAO.getCDSofCorso(codins)
+        cds.sort(key=lambda x: x[1], reverse=True)
+        return cds

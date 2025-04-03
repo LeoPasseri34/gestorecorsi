@@ -25,7 +25,7 @@ class View(ft.UserControl):
 
     def load_interface(self):
         # title
-        self._title = ft.Text("Hello World", color="blue", size=24)
+        self._title = ft.Text("Gestore Corsi", color="blue", size=24)
         self._page.controls.append(self._title)
 
         self.ddPD = ft.Dropdown(label="Periodo didattico",
